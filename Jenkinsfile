@@ -20,5 +20,13 @@ pipeline {
                 }
             }
         }
+
+        stage ("Deploy kubernetes") {
+            steps {
+                withKubeconfig (credentialsId: 'josnada-devops-kubeconfig') {
+                    sh 'kubectl apply ./k8s/digital-ocean-deployment.yaml'
+                }                
+            }
+        }
     }
 }
