@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 withKubeConfig (credentialsId: 'josnada-devops-kubeconfig') {
-                    sh 'sed -i "s/{{TAG}}/$tag_version/g" /k8s/digital-ocean-deployment.yaml'
+                    sh 'sed -i "s/{{TAG}}/$tag_version/g" ./k8s/digital-ocean-deployment.yaml'
                     sh 'kubectl apply -f ./k8s/digital-ocean-deployment.yaml'
                 }                
             }
