@@ -22,8 +22,12 @@ pipeline {
         }
 
         stage ("Deploy kubernetes") {
+            environment {
+                tag_version = "v${env.BUILD_ID}"
+            }
             steps {
                 withKubeConfig (credentialsId: 'josnada-devops-kubeconfig') {
+                    sh 'sed -i "s/{{TAG}}/$tag_version/g" /k8s/digital-ocean-deployment.yaml'
                     sh 'kubectl apply -f ./k8s/digital-ocean-deployment.yaml'
                 }                
             }
