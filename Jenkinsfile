@@ -24,7 +24,7 @@ pipeline {
         stage ("Deploy kubernetes") {
             steps {
                 withKubeConfig (credentialsId: 'josnada-devops-kubeconfig') {
-                    sh 'kubectl apply ./k8s/digital-ocean-deployment.yaml'
+                    sh 'kubectl apply -f ./k8s/digital-ocean-deployment.yaml'
                 }                
             }
         }
