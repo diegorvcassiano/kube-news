@@ -52,10 +52,15 @@ spec:
     metadata:
       labels:
         app: web
+      annotations:
+        # Adding prometheus annotations to save metrics about the pod
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
         - name: web
-          image: diegorvcassiano/kube-news:v1
+          image: diegorvcassiano/kube-news:latest
           ports: 
           - containerPort: 8080
           env:
@@ -80,7 +85,8 @@ spec:
   ports:
     - port: 80
       targetPort: 8080
-      nodePort: 30000
-  type: NodePort
+      #nodePort: 30000
+  # type: NodePort
+  type: LoadBalancer
 
 ---
